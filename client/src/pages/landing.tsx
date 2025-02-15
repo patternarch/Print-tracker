@@ -32,7 +32,7 @@ export default function Landing() {
         canonical="/"
       />
 
-      <main>
+      <main className="min-h-screen">
         <section className="relative py-20 px-6 md:px-10">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
@@ -59,11 +59,6 @@ export default function Landing() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="rounded-lg p-6 bg-card">
-                <img
-                  src="https://images.unsplash.com/photo-1487958449943-2429e8be8625"
-                  alt="Blueprint tracking"
-                  className="w-full h-48 object-cover rounded-md mb-4"
-                />
                 <h3 className="text-xl font-semibold mb-2">Print Tracking</h3>
                 <p className="text-muted-foreground">
                   Track and manage all your blueprint prints in one place
@@ -71,11 +66,6 @@ export default function Landing() {
               </div>
 
               <div className="rounded-lg p-6 bg-card">
-                <img
-                  src="https://images.unsplash.com/photo-1469198629071-b7d66775e2fa"
-                  alt="Project organization"
-                  className="w-full h-48 object-cover rounded-md mb-4"
-                />
                 <h3 className="text-xl font-semibold mb-2">Project Organization</h3>
                 <p className="text-muted-foreground">
                   Organize prints by project and client for easy access
@@ -83,11 +73,6 @@ export default function Landing() {
               </div>
 
               <div className="rounded-lg p-6 bg-card">
-                <img
-                  src="https://images.unsplash.com/photo-1562155695-fb6e1f95fcfd"
-                  alt="Print analytics"
-                  className="w-full h-48 object-cover rounded-md mb-4"
-                />
                 <h3 className="text-xl font-semibold mb-2">Print Analytics</h3>
                 <p className="text-muted-foreground">
                   Gain insights into your printing patterns and usage
