@@ -7,6 +7,7 @@ import Landing from "@/pages/landing";
 import Dashboard from "@/pages/dashboard";
 import Projects from "@/pages/projects";
 import PrintHistory from "@/pages/print-history";
+import Analytics from "@/pages/analytics";
 import Navbar from "@/components/navbar";
 
 function Router() {
@@ -18,6 +19,7 @@ function Router() {
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/projects" component={Projects} />
         <Route path="/history" component={PrintHistory} />
+        <Route path="/analytics" component={Analytics} />
         <Route component={NotFound} />
       </Switch>
     </div>

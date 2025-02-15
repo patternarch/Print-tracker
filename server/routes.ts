@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertProjectSchema, insertPrintJobSchema } from "@shared/schema";
+import { analyticsService } from "./services/analytics";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Projects
@@ -44,13 +45,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.patch("/api/print-jobs/:id/status", async (req, res) => {
     const { status } = req.body;
     if (!status) return res.status(400).json({ message: "Status is required" });
-    
+
     try {
       const job = await storage.updatePrintJobStatus(Number(req.params.id), status);
       res.json(job);
     } catch (error) {
       res.status(404).json({ message: "Print job not found" });
     }
+  });
+
+  // Analytics Routes
+  app.get("/api/analytics/print-volume", async (req, res) => {
+    const months = req.query.months ? Number(req.query.months) : 12;
+    const data = await analyticsService.getMonthlyPrintVolume(months);
+    res.json(data);
+  });
+
+  app.get("/api/analytics/project-stats", async (req, res) => {
+    const stats = await analyticsService.getProjectStats();
+    res.json(stats);
+  });
+
+  app.get("/api/analytics/paper-types", async (req, res) => {
+    const distribution = await analyticsService.getPaperTypeDistribution();
+    res.json(distribution);
+  });
+
+  app.get("/api/analytics/turnaround-time", async (req, res) => {
+    const time = await analyticsService.getAverageTurnaroundTime();
+    res.json(time);
   });
 
   const httpServer = createServer(app);

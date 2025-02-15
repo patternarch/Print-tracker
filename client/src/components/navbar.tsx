@@ -7,6 +7,7 @@ const navItems = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/projects", label: "Projects" },
   { href: "/history", label: "Print History" },
+  { href: "/analytics", label: "Analytics" },
 ];
 
 export default function Navbar() {
