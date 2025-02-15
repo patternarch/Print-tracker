@@ -1,15 +1,37 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import SEOHead from "@/components/seo-head";
+import { generateStructuredData } from "@/lib/seo-utils";
 
 export default function Landing() {
+  const structuredData = generateStructuredData("Service", {
+    name: "PrintTrack - Professional Print Tracking",
+    description: "Streamline your architectural print workflow with PrintTrack. Track, manage, and optimize your blueprint printing process efficiently.",
+    provider: {
+      "@type": "Organization",
+      name: "PrintTrack",
+      description: "Leading print management solution for architects"
+    }
+  });
+
   return (
     <>
       <SEOHead
         title="PrintTrack - Professional Print Tracking for Architects"
         description="Streamline your architectural print workflow with PrintTrack. Track, manage, and optimize your blueprint printing process efficiently."
+        keywords={[
+          "architectural print tracking",
+          "blueprint management",
+          "print workflow",
+          "architect software",
+          "print monitoring",
+          "CAD printing",
+          "professional printing"
+        ]}
+        structuredData={structuredData}
+        canonical="/"
       />
-      
+
       <main>
         <section className="relative py-20 px-6 md:px-10">
           <div className="max-w-7xl mx-auto">
