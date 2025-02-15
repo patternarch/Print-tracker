@@ -1,6 +1,6 @@
 import { Project, PrintJob, InsertProject, InsertPrintJob } from "@shared/schema";
 import { db } from "./db";
-import { projects, printJobs } from "@shared/schema";
+import { projects, printJobs, printLogs, type PrintLog, type InsertPrintLog } from "@shared/schema";
 import { eq } from "drizzle-orm";
 
 export interface IStorage {
@@ -14,6 +14,10 @@ export interface IStorage {
   getPrintJob(id: number): Promise<PrintJob | undefined>;
   createPrintJob(job: InsertPrintJob): Promise<PrintJob>;
   updatePrintJobStatus(id: number, status: string): Promise<PrintJob>;
+
+  // Print Logs
+  logPrintExecution(log: InsertPrintLog): Promise<PrintLog>;
+  getPrintLogs(printJobId?: number): Promise<PrintLog[]>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -61,6 +65,19 @@ export class DatabaseStorage implements IStorage {
     }
 
     return updatedJob;
+  }
+
+  async logPrintExecution(log: InsertPrintLog): Promise<PrintLog> {
+    const [newLog] = await db.insert(printLogs).values(log).returning();
+    return newLog;
+  }
+
+  async getPrintLogs(printJobId?: number): Promise<PrintLog[]> {
+    const query = db.select().from(printLogs);
+    if (printJobId) {
+      query.where(eq(printLogs.printJobId, printJobId));
+    }
+    return await query;
   }
 }
 

@@ -76,6 +76,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json(time);
   });
 
+  // Print Monitor Integration
+  app.post("/api/print-logs", async (req, res) => {
+    const { jobNumber, timestamp, computerName } = req.body;
+
+    try {
+      // Validate the print job exists
+      const printJob = await storage.getPrintJob(Number(jobNumber));
+      if (!printJob) {
+        return res.status(404).json({ message: "Print job not found" });
+      }
+
+      // Log the print execution
+      await storage.logPrintExecution({
+        printJobId: printJob.id,
+        timestamp: new Date(timestamp),
+        computerName,
+      });
+
+      res.status(201).json({ message: "Print log recorded successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to record print log" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
