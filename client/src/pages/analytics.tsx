@@ -14,7 +14,20 @@ import {
   Cell,
 } from "recharts";
 import SEOHead from "@/components/seo-head";
-import type { PrintVolume, ProjectStats } from "@shared/types";
+
+interface PrintVolume {
+  date: string;
+  count: number;
+  totalCost: string;
+}
+
+interface ProjectStats {
+  projectId: number;
+  projectName: string;
+  totalPrints: number;
+  totalCost: string;
+  averageCostPerPrint: string;
+}
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8"];
 
@@ -53,7 +66,7 @@ export default function Analytics() {
             <CardContent>
               <div className="text-3xl font-bold">
                 {turnaroundTime ? (
-                  `${turnaroundTime.averageHours.toFixed(1)} hours`
+                  `${turnaroundTime.averageHours?.toFixed(1) || 'N/A'} hours`
                 ) : (
                   <Skeleton className="h-9 w-24" />
                 )}
@@ -69,7 +82,7 @@ export default function Analytics() {
               <div className="text-3xl font-bold">
                 {projectStats ? (
                   `$${projectStats
-                    .reduce((acc, curr) => acc + Number(curr.totalCost), 0)
+                    .reduce((acc, curr) => acc + Number(curr.totalCost || 0), 0)
                     .toFixed(2)}`
                 ) : (
                   <Skeleton className="h-9 w-24" />
@@ -90,7 +103,7 @@ export default function Analytics() {
                   <Skeleton className="w-full h-full" />
                 ) : (
                   <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={printVolume}>
+                    <BarChart data={printVolume || []}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="date" />
                       <YAxis />
@@ -161,9 +174,9 @@ export default function Analytics() {
                         <tr key={stat.projectId} className="border-b">
                           <td className="p-2">{stat.projectName}</td>
                           <td className="p-2">{stat.totalPrints}</td>
-                          <td className="p-2">${Number(stat.totalCost).toFixed(2)}</td>
+                          <td className="p-2">${Number(stat.totalCost || 0).toFixed(2)}</td>
                           <td className="p-2">
-                            ${Number(stat.averageCostPerPrint).toFixed(2)}
+                            ${Number(stat.averageCostPerPrint || 0).toFixed(2)}
                           </td>
                         </tr>
                       ))}
