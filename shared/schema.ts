@@ -12,7 +12,7 @@ export const projects = pgTable("projects", {
 
 export const printJobs = pgTable("print_jobs", {
   id: serial("id").primaryKey(),
-  projectId: integer("project_id").references(() => projects.id),
+  projectId: integer("project_id").notNull().references(() => projects.id), // Make projectId required
   filename: text("filename").notNull(),
   size: text("size").notNull(),
   copies: integer("copies").notNull(),
@@ -26,12 +26,19 @@ export const printJobs = pgTable("print_jobs", {
 });
 
 export const insertProjectSchema = createInsertSchema(projects).omit({ id: true });
-export const insertPrintJobSchema = createInsertSchema(printJobs).omit({ 
-  id: true, 
-  createdAt: true,
-  totalCost: true,
-  completedAt: true 
-});
+export const insertPrintJobSchema = createInsertSchema(printJobs)
+  .omit({ 
+    id: true, 
+    createdAt: true,
+    totalCost: true,
+    completedAt: true 
+  })
+  .extend({
+    projectId: z.number({
+      required_error: "Project selection is required",
+      invalid_type_error: "Please select a valid project"
+    })
+  });
 
 export type Project = typeof projects.$inferSelect;
 export type PrintJob = typeof printJobs.$inferSelect;

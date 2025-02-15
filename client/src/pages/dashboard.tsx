@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import AnalyticsChart from "@/components/analytics-chart";
 import PrintJobCard from "@/components/print-job-card";
+import CreatePrintJob from "@/components/create-print-job";
 import type { PrintJob } from "@shared/schema";
 
 export default function Dashboard() {
@@ -16,7 +17,10 @@ export default function Dashboard() {
 
   return (
     <div className="container py-8">
-      <h1 className="text-3xl font-bold mb-8">Dashboard</h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold">Dashboard</h1>
+        <CreatePrintJob />
+      </div>
 
       <div className="grid gap-6 md:grid-cols-3 mb-8">
         <Card>
