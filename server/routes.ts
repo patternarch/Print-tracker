@@ -78,7 +78,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Print Monitor Integration
   app.post("/api/print-logs", async (req, res) => {
-    const { jobNumber, timestamp, computerName } = req.body;
+    const { 
+      jobNumber, 
+      timestamp, 
+      computerName,
+      paperSize,
+      paperType,
+      copies,
+      highQuality,
+      versionNotes,
+      estimatedCost 
+    } = req.body;
 
     try {
       // Validate the print job exists
@@ -87,11 +97,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ message: "Print job not found" });
       }
 
-      // Log the print execution
+      // Log the print execution with enhanced details
       await storage.logPrintExecution({
         printJobId: printJob.id,
         timestamp: new Date(timestamp),
         computerName,
+        paperSize,
+        paperType,
+        copies,
+        highQuality,
+        versionNotes,
+        estimatedCost
       });
 
       res.status(201).json({ message: "Print log recorded successfully" });

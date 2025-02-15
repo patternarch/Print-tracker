@@ -30,6 +30,12 @@ export const printLogs = pgTable("print_logs", {
   printJobId: integer("print_job_id").notNull().references(() => printJobs.id),
   timestamp: timestamp("timestamp").notNull(),
   computerName: text("computer_name").notNull(),
+  paperSize: text("paper_size").notNull(),
+  paperType: text("paper_type").notNull(),
+  copies: integer("copies").notNull(),
+  highQuality: boolean("high_quality").default(false),
+  versionNotes: text("version_notes"),
+  estimatedCost: decimal("estimated_cost", { precision: 10, scale: 2 }),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
