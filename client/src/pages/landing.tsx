@@ -33,48 +33,48 @@ export default function Landing() {
       />
 
       <main className="min-h-screen">
-        <section className="relative py-20 px-6 md:px-10">
+        <section className="relative py-12 md:py-20 px-4 md:px-10">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-12">
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+            <div className="text-center mb-8 md:mb-12">
+              <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
                 Professional Print Tracking for Architects
               </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
                 Streamline your blueprint printing workflow with comprehensive tracking, organization, and analytics.
               </p>
             </div>
 
-            <div className="flex justify-center gap-4 mb-16">
+            <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12 md:mb-16 px-4">
               <Link href="/dashboard">
-                <Button size="lg" className="text-lg">
+                <Button size="lg" className="w-full sm:w-auto text-base md:text-lg">
                   Get Started
                 </Button>
               </Link>
               <Link href="#features">
-                <Button size="lg" variant="outline" className="text-lg">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto text-base md:text-lg">
                   Learn More
                 </Button>
               </Link>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="rounded-lg p-6 bg-card">
-                <h3 className="text-xl font-semibold mb-2">Print Tracking</h3>
-                <p className="text-muted-foreground">
+            <div id="features" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4">
+              <div className="rounded-lg p-6 bg-card shadow-sm hover:shadow-md transition-shadow">
+                <h3 className="text-lg md:text-xl font-semibold mb-2">Print Tracking</h3>
+                <p className="text-sm md:text-base text-muted-foreground">
                   Track and manage all your blueprint prints in one place
                 </p>
               </div>
 
-              <div className="rounded-lg p-6 bg-card">
-                <h3 className="text-xl font-semibold mb-2">Project Organization</h3>
-                <p className="text-muted-foreground">
+              <div className="rounded-lg p-6 bg-card shadow-sm hover:shadow-md transition-shadow">
+                <h3 className="text-lg md:text-xl font-semibold mb-2">Project Organization</h3>
+                <p className="text-sm md:text-base text-muted-foreground">
                   Organize prints by project and client for easy access
                 </p>
               </div>
 
-              <div className="rounded-lg p-6 bg-card">
-                <h3 className="text-xl font-semibold mb-2">Print Analytics</h3>
-                <p className="text-muted-foreground">
+              <div className="rounded-lg p-6 bg-card shadow-sm hover:shadow-md transition-shadow">
+                <h3 className="text-lg md:text-xl font-semibold mb-2">Print Analytics</h3>
+                <p className="text-sm md:text-base text-muted-foreground">
                   Gain insights into your printing patterns and usage
                 </p>
               </div>
