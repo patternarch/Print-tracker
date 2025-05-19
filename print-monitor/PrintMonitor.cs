@@ -13,13 +13,14 @@ namespace PrintTrackMonitor
     public partial class PrintMonitorForm : Form
     {
         private readonly HttpClient client;
-        private const string API_URL = "http://your-printtrack-server:5000";
+        private readonly string apiUrl;
         private Dictionary<string, decimal> paperCosts;
 
         public PrintMonitorForm()
         {
             InitializeComponent();
             client = new HttpClient();
+            apiUrl = Environment.GetEnvironmentVariable("PRINTTRACK_API_URL") ?? "http://localhost:5000";
             InitializePrintMonitor();
             InitializePaperCosts();
         }
@@ -156,7 +157,7 @@ namespace PrintTrackMonitor
             try
             {
                 // Validate job number with API
-                var response = await client.GetAsync($"{API_URL}/api/print-jobs/{details.JobNumber}");
+                var response = await client.GetAsync($"{apiUrl}/api/print-jobs/{details.JobNumber}");
                 if (!response.IsSuccessStatusCode)
                 {
                     MessageBox.Show("Invalid job number. Please enter a valid print job number.");
@@ -214,7 +215,7 @@ namespace PrintTrackMonitor
                 };
 
                 await client.PostAsync(
-                    $"{API_URL}/api/print-logs",
+                    $"{apiUrl}/api/print-logs",
                     new StringContent(
                         System.Text.Json.JsonSerializer.Serialize(data),
                         System.Text.Encoding.UTF8,

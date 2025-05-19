@@ -76,6 +76,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json(time);
   });
 
+  // Print Logs
+  app.get("/api/print-logs", async (req, res) => {
+    const printJobId = req.query.printJobId
+      ? Number(req.query.printJobId)
+      : undefined;
+    const logs = await storage.getPrintLogs(printJobId);
+    res.json(logs);
+  });
+
   // Print Monitor Integration
   app.post("/api/print-logs", async (req, res) => {
     const { 
